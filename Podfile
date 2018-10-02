@@ -9,6 +9,7 @@ target 'crypto_watch' do
   pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'PromisesSwift', '~> 1.2.3'
+  pod 'GoogleSignIn'
 
   target 'crypto_watchTests' do
     inherit! :search_paths

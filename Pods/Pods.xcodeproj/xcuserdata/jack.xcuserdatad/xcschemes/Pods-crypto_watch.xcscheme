@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E129507D934B4A28B1BF9E5E30EDF65F"
+               BlueprintIdentifier = "409B9859092DD46228C9BA91AEBCFBBF"
                BuildableName = "Pods_crypto_watch.framework"
                BlueprintName = "Pods-crypto_watch"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E129507D934B4A28B1BF9E5E30EDF65F"
+            BlueprintIdentifier = "409B9859092DD46228C9BA91AEBCFBBF"
             BuildableName = "Pods_crypto_watch.framework"
             BlueprintName = "Pods-crypto_watch"
             ReferencedContainer = "container:Pods.xcodeproj">

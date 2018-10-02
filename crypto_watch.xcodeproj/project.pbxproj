@@ -18,6 +18,7 @@
 		0403F56A216015D5006805DF /* coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403F569216015D5006805DF /* coin.swift */; };
 		0403F56D2160169D006805DF /* pull_currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403F56C2160169D006805DF /* pull_currencies.swift */; };
 		04DE152B21606B8400389A16 /* crypto_detail_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE152A21606B8400389A16 /* crypto_detail_view.swift */; };
+		04DE152D21608E1C00389A16 /* sign_in_controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE152C21608E1C00389A16 /* sign_in_controller.swift */; };
 		29AB4D9602EF5FD0B2526365 /* Pods_crypto_watchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270148F85280186D4FCC3385 /* Pods_crypto_watchUITests.framework */; };
 		438CFD177FCFF90014CDEB84 /* Pods_crypto_watch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E74E285ACD6FB91E3D2609A /* Pods_crypto_watch.framework */; };
 		A9A309A01085BFBE56B03E81 /* Pods_crypto_watchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55E25E18858EC5C3DD2F47E /* Pods_crypto_watchTests.framework */; };
@@ -58,6 +59,7 @@
 		0403F569216015D5006805DF /* coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coin.swift; sourceTree = "<group>"; };
 		0403F56C2160169D006805DF /* pull_currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pull_currencies.swift; sourceTree = "<group>"; };
 		04DE152A21606B8400389A16 /* crypto_detail_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto_detail_view.swift; sourceTree = "<group>"; };
+		04DE152C21608E1C00389A16 /* sign_in_controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sign_in_controller.swift; sourceTree = "<group>"; };
 		270148F85280186D4FCC3385 /* Pods_crypto_watchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_crypto_watchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4193FD42C1C22CAAA55C56B5 /* Pods-crypto_watch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-crypto_watch.release.xcconfig"; path = "Pods/Target Support Files/Pods-crypto_watch/Pods-crypto_watch.release.xcconfig"; sourceTree = "<group>"; };
 		4E74E285ACD6FB91E3D2609A /* Pods_crypto_watch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_crypto_watch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				0403F540216012AA006805DF /* Info.plist */,
 				0403F56621601363006805DF /* crypto_list_controller.swift */,
 				04DE152A21606B8400389A16 /* crypto_detail_view.swift */,
+				04DE152C21608E1C00389A16 /* sign_in_controller.swift */,
 			);
 			path = crypto_watch;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				0403F52E216012A6006805DF /* Frameworks */,
 				0403F52F216012A6006805DF /* Resources */,
 				5FC9B74134D9BD489F16F246 /* [CP] Embed Pods Frameworks */,
+				E4FA22D54A393B97B3B3559F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -400,6 +404,9 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-crypto_watch/Pods-crypto_watch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -409,6 +416,9 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -416,6 +426,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-crypto_watch/Pods-crypto_watch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4FA22D54A393B97B3B3559F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-crypto_watch/Pods-crypto_watch-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-crypto_watch/Pods-crypto_watch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -427,6 +459,7 @@
 			files = (
 				0403F5652160133C006805DF /* crypto_cell.swift in Sources */,
 				04DE152B21606B8400389A16 /* crypto_detail_view.swift in Sources */,
+				04DE152D21608E1C00389A16 /* sign_in_controller.swift in Sources */,
 				0403F535216012A7006805DF /* AppDelegate.swift in Sources */,
 				0403F56A216015D5006805DF /* coin.swift in Sources */,
 				0403F56D2160169D006805DF /* pull_currencies.swift in Sources */,

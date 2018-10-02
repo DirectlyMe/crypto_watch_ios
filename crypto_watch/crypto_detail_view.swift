@@ -30,6 +30,8 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         alertButton.layer.cornerRadius = 20
         alertButton.clipsToBounds = true
         
+        navigationController?.isNavigationBarHidden = false
+        
         if let passedCoin = self.coin {
             detailTitle.text = passedCoin.coinName
             detailPrice.text = String(passedCoin.coinPrice)
