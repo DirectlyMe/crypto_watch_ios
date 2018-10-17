@@ -17,6 +17,8 @@
 		0403F56721601363006805DF /* crypto_list_controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403F56621601363006805DF /* crypto_list_controller.swift */; };
 		0403F56A216015D5006805DF /* coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403F569216015D5006805DF /* coin.swift */; };
 		0403F56D2160169D006805DF /* pull_currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403F56C2160169D006805DF /* pull_currencies.swift */; };
+		048755742174476B001D72AB /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048755732174476B001D72AB /* user.swift */; };
+		0487557621744869001D72AB /* authenticate_user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487557521744869001D72AB /* authenticate_user.swift */; };
 		04DE152B21606B8400389A16 /* crypto_detail_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE152A21606B8400389A16 /* crypto_detail_view.swift */; };
 		04DE152D21608E1C00389A16 /* sign_in_controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE152C21608E1C00389A16 /* sign_in_controller.swift */; };
 		29AB4D9602EF5FD0B2526365 /* Pods_crypto_watchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270148F85280186D4FCC3385 /* Pods_crypto_watchUITests.framework */; };
@@ -58,6 +60,8 @@
 		0403F56621601363006805DF /* crypto_list_controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto_list_controller.swift; sourceTree = "<group>"; };
 		0403F569216015D5006805DF /* coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coin.swift; sourceTree = "<group>"; };
 		0403F56C2160169D006805DF /* pull_currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pull_currencies.swift; sourceTree = "<group>"; };
+		048755732174476B001D72AB /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
+		0487557521744869001D72AB /* authenticate_user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = authenticate_user.swift; sourceTree = "<group>"; };
 		04DE152A21606B8400389A16 /* crypto_detail_view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto_detail_view.swift; sourceTree = "<group>"; };
 		04DE152C21608E1C00389A16 /* sign_in_controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sign_in_controller.swift; sourceTree = "<group>"; };
 		270148F85280186D4FCC3385 /* Pods_crypto_watchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_crypto_watchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				0403F569216015D5006805DF /* coin.swift */,
+				048755732174476B001D72AB /* user.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				0403F56C2160169D006805DF /* pull_currencies.swift */,
+				0487557521744869001D72AB /* authenticate_user.swift */,
 			);
 			path = api_calls;
 			sourceTree = "<group>";
@@ -269,6 +275,11 @@
 				TargetAttributes = {
 					0403F530216012A6006805DF = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					0403F544216012AA006805DF = {
 						CreatedOnToolsVersion = 10.0;
@@ -460,7 +471,9 @@
 				0403F5652160133C006805DF /* crypto_cell.swift in Sources */,
 				04DE152B21606B8400389A16 /* crypto_detail_view.swift in Sources */,
 				04DE152D21608E1C00389A16 /* sign_in_controller.swift in Sources */,
+				0487557621744869001D72AB /* authenticate_user.swift in Sources */,
 				0403F535216012A7006805DF /* AppDelegate.swift in Sources */,
+				048755742174476B001D72AB /* user.swift in Sources */,
 				0403F56A216015D5006805DF /* coin.swift in Sources */,
 				0403F56D2160169D006805DF /* pull_currencies.swift in Sources */,
 				0403F56721601363006805DF /* crypto_list_controller.swift in Sources */,

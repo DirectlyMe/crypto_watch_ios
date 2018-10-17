@@ -12,46 +12,29 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
+    var window: UIWindow?
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print(error.localizedDescription)
         } else {
-            let userId = user.userID
-            let idToken = user.authentication.idToken
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email
-            
-            print("user signed in")
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            if let listVC = sb.instantiateViewController(withIdentifier: "CryptoList") as? UITableViewController {
-                window!.rootViewController = listVC
-            } else {
-                print("Something went wrong")
-            }
+            User.create(email: user.profile.email, authToken: user.authentication.idToken)
+            let user = User.userSingleton
+            let authenticateUser = AuthenticateUser(user: user!)
+            authenticateUser.signIn(transitionWindow: window!)
         }
     }
+    
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         print("User Logged out")
     }
-    
-    var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GIDSignIn.sharedInstance().clientID = "1076348502483-slk0eiuptrf1hiei9goi7jmt8m013v7a.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
-        
-        /* if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            print("user signed in")
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            if let listVC = sb.instantiateViewController(withIdentifier: "CryptoList") as? UITableViewController {
-                window!.rootViewController = listVC
-            }
-        } */
         
         return true
     }
