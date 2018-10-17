@@ -13,20 +13,15 @@ class sign_in_controller: UIViewController, GIDSignInUIDelegate {
 
     @IBOutlet weak var signInLabel: UITextField!
     @IBOutlet weak var signInButton: GIDSignInButton!
-    @IBOutlet weak var continueButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance().uiDelegate = self
-        
-        self.signInButton.colorScheme = GIDSignInButtonColorScheme.dark
-        self.signInButton.style = GIDSignInButtonStyle.iconOnly
-        
         GIDSignIn.sharedInstance().signInSilently()
-
+        
+        self.signInButton.style = GIDSignInButtonStyle.standard
         self.signInLabel.sizeToFit()
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - Navigation

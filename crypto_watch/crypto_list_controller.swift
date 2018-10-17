@@ -23,7 +23,6 @@ class crypto_list_controller: UITableViewController {
             self.tableView.reloadData()
         }
         
-        
         tableView.estimatedRowHeight = 50
     }
     

@@ -14,13 +14,13 @@ class Coin {
     let coinPrice: Double
     let coinVolume: Double
     let coinChange: Double
+    let predictedPrice: Double?
     
     init(name: String, price: Double, volume: Double, change: Double) {
         coinName = name
         coinPrice = price
         coinVolume = volume
         coinChange = change
+        predictedPrice = 0
     }
-    
-    
 }
