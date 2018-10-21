@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Promises
 
 class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -16,6 +17,7 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var detailVolume: UITextField!
     @IBOutlet weak var alertButton: UIButton!
     @IBOutlet weak var pricePicker: UIPickerView!
+    @IBOutlet weak var predictedPriceField: UITextField!
     
     var coin: Coin?
     var pickerData: [Int] = [Int]()
@@ -27,6 +29,8 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+
+        
         alertButton.layer.cornerRadius = 20
         alertButton.clipsToBounds = true
         
@@ -34,7 +38,7 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         if let passedCoin = self.coin {
             detailTitle.text = passedCoin.coinName
-            detailPrice.text = String(passedCoin.coinPrice)
+            detailPrice.text = "$\(String(passedCoin.coinPrice))"
             detailChange.text = String(passedCoin.coinChange)
             detailVolume.text = String(passedCoin.coinVolume)
         }
@@ -45,6 +49,15 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         for i in stride(from: 0, through: 20000, by: 500) {
             self.pickerData.append(i)
         }
+        
+        let pullCurrencies = PullCurrencies()
+        let predictionPromise = pullCurrencies.getPrediction(coin: self.coin!)
+        
+        predictionPromise.then { data in
+            print(data)
+            self.predictedPriceField.text = "$\(String(data))"
+        }
+        
     }
     
     @IBAction func setAlert(_ sender: Any) {

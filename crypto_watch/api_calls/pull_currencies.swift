@@ -15,7 +15,7 @@ class PullCurrencies {
     
     var pulledCurrencies: [Coin]?
     let coins: [String] = ["BTC", "LTC", "XRP", "ETH"]
-    let url: String = "http://192.168.1.120:8080"
+    let url: String = "http://192.168.1.124:8080"
     
     
     public init() {
@@ -44,7 +44,7 @@ class PullCurrencies {
                     let volume = json[coin]["quote"]["USD"]["volume_24h"].double as Double?
                     let price = json[coin]["quote"]["USD"]["price"].double as Double?
                     
-                    let pulledCoin = Coin(name: name!, price: price!, volume: volume!, change: change!);
+                    let pulledCoin = Coin(name: name!, symbol: coin, price: price!, volume: volume!, change: change!);
                     fulfill(pulledCoin)
                 } else {
                     let alert = UIAlertController(title: "Error", message: "Couldn't no pull currencies, the server may be down, or we just can't connect.", preferredStyle: .alert)
@@ -63,15 +63,21 @@ class PullCurrencies {
     
     public func getPrediction(coin: Coin) -> Promise<Double> {
         return Promise<Double> { fulfill, reject in
-            Alamofire.request("\(self.url)/predict/get-predcition\(coin.coinName)")
+            Alamofire.request("\(self.url)/predict/get-prediction/\(coin.coinSymbol)")
             .responseJSON
             { response in
                     
-                    if let result = response.result.value {
-                        let json = JSON(result)
-                        
-                        
+                if let result = response.result.value {
+                    let json = JSON(result)
+                    
+                    print(json)
+                    
+                    if let prediction = json["prediction"].double as Double? {
+                        fulfill(prediction.truncate(places: 2))
                     }
+                } else {
+                    reject(response.result.error!)
+                }
             }
         }
     }

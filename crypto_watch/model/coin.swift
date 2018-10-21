@@ -11,16 +11,18 @@ import Foundation
 class Coin {
     
     let coinName: String
+    let coinSymbol: String
     let coinPrice: Double
     let coinVolume: Double
     let coinChange: Double
-    let predictedPrice: Double?
+    var predictedPrice: Double?
     
-    init(name: String, price: Double, volume: Double, change: Double) {
+    init(name: String, symbol: String, price: Double, volume: Double, change: Double) {
         coinName = name
         coinPrice = price
         coinVolume = volume
         coinChange = change
         predictedPrice = 0
+        coinSymbol = symbol
     }
 }
