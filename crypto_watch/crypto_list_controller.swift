@@ -16,6 +16,7 @@ class crypto_list_controller: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // retreive currencies from backend
         let pullCurrencies = PullCurrencies()
         let promises = pullCurrencies.getCurrencies()
         all(promises).then { coins in

@@ -7,7 +7,10 @@
 //
 
 import UIKit
+import UserNotifications
 import GoogleSignIn
+import Alamofire
+import Promises
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -36,6 +39,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = "1076348502483-slk0eiuptrf1hiei9goi7jmt8m013v7a.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         
+        let generalCategory = UNNotificationCategory(identifier: "GENERAL",
+                                                     actions: [],
+                                                     intentIdentifiers: [],
+                                                     options: .customDismissAction)
+        
+        // Register the category.
+        let center = UNUserNotificationCenter.current()
+        center.setNotificationCategories([generalCategory])
+        
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+            if let receivedError = error {
+                print(receivedError)
+            } else {
+                print("Notifications authorized")
+            }
+        }
+        
+        // 6 hours
+        UIApplication.shared.setMinimumBackgroundFetchInterval(6 * (60 * 60))
+        
         return true
     }
     
@@ -43,6 +67,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         return GIDSignIn.sharedInstance().handle(url as URL?,
                                                  sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                  annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+    }
+    
+    func application(_ application: UIApplication,
+                              performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("In performFetch")
+        self.getCurrencyUpdates()
+    }
+    
+    func getCurrencyUpdates() {
+        var coins: [Coin]?
+        var reminders: [String : Double]?
+        let pullCurrencies = PullCurrencies()
+        
+        let currencyPromises = pullCurrencies.getCurrencies()
+        all(currencyPromises).then { returnedCoins in
+            coins = returnedCoins
+            
+            let reminderCalls = ReminderCalls()
+            let reminderPromise = reminderCalls.getReminders()
+            reminderPromise.then { returnedReminders in
+                reminders = returnedReminders
+                
+                self.comparePrices(coins: coins!, reminders: reminders!)
+            }
+        }
+    }
+    
+    func comparePrices(coins: [Coin], reminders: Dictionary<String, Double>) {
+        var notificationList: [String : Double] = [:]
+        
+        for reminder in reminders {
+            let reminderSymbol = reminder.key
+            
+            for coin in coins {
+                if coin.coinSymbol == reminderSymbol {
+                    let adjustedPriceHigh = coin.coinPrice + (coin.coinPrice * 0.05) // Bump up the price 5%
+                    let adjustedPriceLow = coin.coinPrice - (coin.coinPrice * 0.05)  // reduce the price 5%
+                    
+                    // add the reminder to notificationList if its between the high and low value
+                    if adjustedPriceLow...adjustedPriceHigh ~= reminder.value {
+                        notificationList[coin.coinName] = coin.coinPrice
+                    }
+                    break
+                }
+            }
+        }
+        
+        createReminderNotification(notifications: notificationList)
+    }
+    
+    func createReminderNotification(notifications: [String : Double]) {
+        var notificationBody: String = ""
+        
+        for (key, value) in notifications {
+            notificationBody.append(contentsOf: "\(key): \(value)\n")
+        }
+        
+        let content = UNMutableNotificationContent()
+        
+        content.title = NSString.localizedUserNotificationString(forKey: "Crypto Reminder", arguments: nil)
+        content.body = NSString.localizedUserNotificationString(forKey: notificationBody, arguments: nil)
+        content.sound = UNNotificationSound.default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: (30), repeats: false)
+        
+        let reminderRequest = UNNotificationRequest(identifier: "CryptoReminder", content: content, trigger: trigger)
+        let center = UNUserNotificationCenter.current()
+        
+        center.add(reminderRequest, withCompletionHandler: { (error: Error?) in
+            if let theError = error {
+                print(theError.localizedDescription)
+            }
+        })
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

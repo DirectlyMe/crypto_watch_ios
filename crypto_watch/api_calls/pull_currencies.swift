@@ -14,7 +14,7 @@ import Promises
 class PullCurrencies {
     
     var pulledCurrencies: [Coin]?
-    let coins: [String] = ["BTC", "LTC", "XRP", "ETH"]
+    let coins: [String] = [availableCoins.BTC.rawValue, availableCoins.ETH.rawValue, availableCoins.LTC.rawValue, availableCoins.XRP.rawValue]
     let url: String = "http://192.168.1.124:8080"
     
     
@@ -69,8 +69,6 @@ class PullCurrencies {
                     
                 if let result = response.result.value {
                     let json = JSON(result)
-                    
-                    print(json)
                     
                     if let prediction = json["prediction"].double as Double? {
                         fulfill(prediction.truncate(places: 2))

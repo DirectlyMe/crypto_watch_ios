@@ -170,14 +170,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Currencies" id="yWX-gN-Qe9"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="bl2-bq-UGw">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WXX-be-PTa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895.2" y="124.58770614692655"/>
+            <point key="canvasLocation" x="1834" y="125"/>
         </scene>
         <!--Detail-->
         <scene sceneID="f8g-Mh-j38">

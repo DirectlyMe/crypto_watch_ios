@@ -22,7 +22,7 @@ class Coin {
         coinPrice = price
         coinVolume = volume
         coinChange = change
-        predictedPrice = 0
         coinSymbol = symbol
+        predictedPrice = 0
     }
 }

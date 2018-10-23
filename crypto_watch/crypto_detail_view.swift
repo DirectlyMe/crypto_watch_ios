@@ -8,6 +8,7 @@
 
 import UIKit
 import Promises
+import Alamofire
 
 class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -20,17 +21,14 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var predictedPriceField: UITextField!
     
     var coin: Coin?
-    var pickerData: [Int] = [Int]()
+    var pickerData: [Double] = [Double]()
     
-    var selectedPrice: Int?
-    var reminder: Int?
+    var selectedPrice: Double?
+    var reminder: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-
-        
         alertButton.layer.cornerRadius = 20
         alertButton.clipsToBounds = true
         
@@ -46,15 +44,42 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         self.pricePicker.delegate = self
         self.pricePicker.dataSource = self
         
-        for i in stride(from: 0, through: 20000, by: 500) {
-            self.pickerData.append(i)
+        var top: Double
+        var step: Double
+        var places: Int
+        
+        switch coin?.coinSymbol {
+        case "BTC":
+            top = 20000
+            step = 200
+            places = 0
+        case "ETH":
+            top = 1500
+            step = 50
+            places = 0
+        case "LTC":
+            top = 500
+            step = 10
+            places = 0
+        case "XRP":
+            top = 3.00
+            step = 0.05
+            places = 2
+        default:
+            top = 0
+            step = 0
+            places = 0
+        }
+        
+        for i in stride(from: 0, through: top, by: step) {
+            let v = i.truncate(places: places)
+            self.pickerData.append(v)
         }
         
         let pullCurrencies = PullCurrencies()
         let predictionPromise = pullCurrencies.getPrediction(coin: self.coin!)
         
         predictionPromise.then { data in
-            print(data)
             self.predictedPriceField.text = "$\(String(data))"
         }
         
@@ -63,8 +88,13 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBAction func setAlert(_ sender: Any) {
         self.reminder = self.selectedPrice
         
-        let alert = UIAlertController(title: "Reminder Set", message: "Price reminder has been set for \(self.reminder ?? 0)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in print("Ok pressed")}))
+        let alert = UIAlertController(title: "Price Reminder", message: "Set price reminder for \(self.reminder ?? 0)?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler:
+            { _ in
+                let reminderCalls = ReminderCalls()
+                reminderCalls.postReminder(coin: self.coin!, price: self.reminder!)
+            }
+        ))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in print("Cancel pressed")}))
         
         self.present(alert, animated: true, completion: nil)
@@ -79,8 +109,11 @@ class crypto_detail_view: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        self.selectedPrice = pickerData[row]
         return String(pickerData[row])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedPrice = pickerData[row]
     }
     
     /*
