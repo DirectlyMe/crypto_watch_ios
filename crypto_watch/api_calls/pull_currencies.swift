@@ -15,7 +15,7 @@ class PullCurrencies {
     
     var pulledCurrencies: [Coin]?
     let coins: [String] = [availableCoins.BTC.rawValue, availableCoins.ETH.rawValue, availableCoins.LTC.rawValue, availableCoins.XRP.rawValue]
-    let url: String = "http://192.168.1.124:8080"
+    let url: String = "http://\(Config.serverIP)"
     
     
     public init() {

@@ -19,9 +19,9 @@ class Coin {
     
     init(name: String, symbol: String, price: Double, volume: Double, change: Double) {
         coinName = name
-        coinPrice = price
-        coinVolume = volume
-        coinChange = change
+        coinPrice = price.truncate(places: 2)
+        coinVolume = volume.truncate(places: 2)
+        coinChange = change.truncate(places: 2)
         coinSymbol = symbol
         predictedPrice = 0
     }

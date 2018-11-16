@@ -12,7 +12,7 @@ import Promises
 import SwiftyJSON
 
 class ReminderCalls {
-    let url = "http://192.168.1.124:8080/user"
+    let url = "http://\(Config.serverIP)/user"
     
     func postReminder(coin: Coin, price: Double) {
         let params = ["currency": coin.coinSymbol, "priceReminder": price] as Parameters

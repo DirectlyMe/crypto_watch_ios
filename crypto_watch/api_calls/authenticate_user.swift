@@ -23,7 +23,7 @@ class AuthenticateUser {
         
         let params = ["tokenID": authToken, "username": email]
         
-        Alamofire.request("http://192.168.1.124:8080/auth/signIn", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default).responseJSON
+        Alamofire.request("http://\(Config.serverIP)/auth/signIn", method: .post, parameters: params as Parameters, encoding: JSONEncoding.default).responseJSON
         { response in
             if response.result.error == nil {
                 self.user?.signedIn = true
